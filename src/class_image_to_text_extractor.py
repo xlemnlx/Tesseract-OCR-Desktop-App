@@ -432,17 +432,17 @@ class Image_To_Text_Extractor:
                 
                 matched_pattern = self.tesseract_default(image=per_cropped)
                 if matched_pattern is not None:
-                    print("\nFound a match using default Tesseract!\n")
+                    print("\nFound a match!\n")
                     return matched_pattern
                 
                 matched_pattern = self.tesseract_with_filters(image=per_cropped)
                 if matched_pattern is not None:
-                    print("\nFound a match using Tesseract to a filtered image!\n")
+                    print("\nFound a match using a filtered image!\n")
                     return matched_pattern
                 
                 matched_pattern = self.tesseract_contours(image=per_cropped)
                 if matched_pattern is not None:
-                    print("\nFound a match using Tesseract to a contoured image!\n")
+                    print("\nFound a match using a contoured image!\n")
                     return matched_pattern
                 
                 cropped_cout += 1
@@ -527,7 +527,6 @@ class Image_To_Text_Extractor:
         self.file_type_output_path()
         self.press_key_exit()
         
-
 if __name__ == "__main__":
     Image_To_Text_Extractor(file_type, isbn_format, output_path, image_path, tesseract_path)
     # Image_To_Text_Extractor()

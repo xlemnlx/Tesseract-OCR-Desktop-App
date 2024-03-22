@@ -16,7 +16,7 @@ btn_state = 0
 while btn_state == 0:
     btn_state = my_GUI.button_state() # Calling the function to see if the proceed button has been pressed.
     if btn_state == 1:
-        print("User has pressed the Proceed button. Running the program now.") # Just some kind of evidence that the button has been pressed.
+        print("User has pressed the Proceed button. Running the program now.\n") # Just some kind of evidence that the button has been pressed.
         file_type, isbn_format, output_path, image_path, tesseract_path = my_GUI.variable_values() # Stores the necessary values to the variables.
 
 #--------------------------------------------------------------------------------------------------------
