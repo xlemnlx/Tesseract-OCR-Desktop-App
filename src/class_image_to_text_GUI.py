@@ -4,6 +4,7 @@ from glob import glob
 import tkinter as tkt
 import tkinter.filedialog as fd
 import os
+import sys
 
 class Image_to_Text_GUI:
     
@@ -175,8 +176,8 @@ class Image_to_Text_GUI:
     # Closing method. This method will trigger when the user click in the "x" button of the window:
     #----------------------------------------------------------------------------------------------------
     def closing_question(self):
-        if mb.askyesno(title="Quit", message="Do you really want to quit the application?"):
-            exit()
+        if mb.askyesno(title="Quit", message="Do you really want to quit the application?") is True:
+            sys.exit(0)
     
     #----------------------------------------------------------------------------------------------------
     # Two methods used for the Output file location:
