@@ -4,8 +4,8 @@
 #
 #    conda env create -f environment.yml
 #    conda env update --file environment.yml --prune
-#    conda env export --name tracking-barbell-exercises > environment.yml
-#    conda env remove --name tracking-barbell-exercises
+#    conda env export --name name_for_the_environment > environment.yml
+#    conda env remove --name name_for_the_environment
 #    conda env list
 
 name: OCR_app
