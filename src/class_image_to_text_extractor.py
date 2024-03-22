@@ -6,6 +6,7 @@ from tqdm import trange
 from readchar import readkey
 import time
 import os
+import sys
 import re
 import cv2
 import pytesseract
@@ -253,7 +254,7 @@ class Image_To_Text_Extractor:
             if k is not None:
                 key_input = True
 
-        exit(0)
+        sys.exit(0)
     
     #----------------------------------------------------------------------------------------------------
     # Image Cropper. -> This crops the current image in the for loop into 72 sections / crop images. This 
