@@ -1,0 +1,32 @@
+# Conda Environment Setup Instructions
+#  - Using an environment.yml file with conda
+#  - Key Terminal Commands:
+#
+#    conda env create -f environment.yml
+#    conda env update --file environment.yml --prune
+#    conda env export --name tracking-barbell-exercises > environment.yml
+#    conda env remove --name tracking-barbell-exercises
+#    conda env list
+
+name: OCR_app
+channels:
+  - anaconda
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11.5
+  - pip
+  - bottleneck
+  - pip:
+      - ipykernel==6.25.0
+      - jupyter-client==7.4.9
+      - jupyter-core==5.3.0
+      - numpy==1.26.3
+      - opencv-python==4.9.0.80
+      - opencv-contrib-python==4.9.0.80
+      - openpyxl==3.0.10
+      - pandas==2.1.4
+      - pytesseract==0.3.10
+      - tqdm==4.65.0
+      - pyinstaller
+      - readchar==4.0.6
