@@ -3590,3 +3590,5 @@ src/build/OCR_app/localpycs/pyimod02_importers.pyc
 src/build/OCR_app/localpycs/pyimod03_ctypes.pyc
 src/build/OCR_app/localpycs/pyimod04_pywin32.pyc
 src/build/OCR_app/localpycs/struct.pyc
+src/__pycache__/class_image_to_text_extractor.cpython-311.pyc
+src/__pycache__/class_image_to_text_GUI.cpython-311.pyc
