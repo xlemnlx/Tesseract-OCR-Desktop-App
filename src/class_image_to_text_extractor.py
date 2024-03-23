@@ -5,6 +5,7 @@ from glob import glob
 from tqdm import trange
 from readchar import readkey
 from datetime import datetime
+from colorama import Fore
 import time
 import os
 import sys
@@ -52,7 +53,6 @@ class Image_To_Text_Extractor:
         self.isbn_failed_path, self.barcode_failed_path = self.failed_folder_validator_creator()
         self.isbn = self.isbn_selector()
         self.my_config = r"-c tessedit_char_whitelist=0123456789xX-,.:;=_&^%$#@!`~{}[]()\/?+* --oem 1"
-        # self.my_config = r"-c tessedit_char_whitelist=0123456789xX-,.:;=_&^%$#@!`~{}[]()\/?+*" # Will be using this first to see if its still outputs the same 11 fails and around 2500 seconds.
         self.image_list = self.image_file_list()
         self.movies_df = self.movies_empty_dataframe()
         
@@ -164,7 +164,7 @@ class Image_To_Text_Extractor:
         image_path_split = image.split("\\")
         image_path = f"{str(image_path_split[0])}/{str(image_path_split[1])}"
         
-        print("Did not found any match. The file will be copied to the failed folder inside the output folder.\n")
+        print(Fore.RED, "Did not found any match. The file will be copied to the failed folder inside the output folder.\n")
         sl.copy2(image_path, self.isbn_failed_path)
     
     #----------------------------------------------------------------------------------------------------
@@ -445,17 +445,17 @@ class Image_To_Text_Extractor:
                 
                 matched_pattern = self.tesseract_default(image=per_cropped)
                 if matched_pattern is not None:
-                    print("\nFound a match!\n")
+                    print(Fore.GREEN, "\nFound a match!\n")
                     return matched_pattern
                 
                 matched_pattern = self.tesseract_with_filters(image=per_cropped)
                 if matched_pattern is not None:
-                    print("\nFound a match using a filtered image!\n")
+                    print(Fore.GREEN, "\nFound a match using a filtered image!\n")
                     return matched_pattern
                 
                 matched_pattern = self.tesseract_contours(image=per_cropped)
                 if matched_pattern is not None:
-                    print("\nFound a match using a contoured image!\n")
+                    print(Fore.GREEN, "\nFound a match using a contoured image!\n")
                     return matched_pattern
                 
                 cropped_cout += 1
@@ -503,9 +503,9 @@ class Image_To_Text_Extractor:
             current_movie_isbn = self.tesseract_default(image=per_image)
             
             if current_movie_isbn is not None:
-                print("Found a match using the whole image!")
+                print(Fore.GREEN, "Found a match using the whole image!")
                 print("Inserting values to the Dataframe.\n")
-                print("--------------------------------------------------------")
+                print("--------------------------------------------------------", Fore.RESET)
                 self.insert_to_movies_df(current_movie_name, current_movie_isbn, current_movie_barcode)
             else:
                 print("Did not found the ISBN using the whole image.")
@@ -513,12 +513,12 @@ class Image_To_Text_Extractor:
                 
                 if current_movie_isbn is not None:
                     print("Inserting values to the Dataframe.\n")
-                    print("--------------------------------------------------------")
+                    print("--------------------------------------------------------", Fore.RESET)
                     self.insert_to_movies_df(current_movie_name, current_movie_isbn, current_movie_barcode)
                 else:
                     current_movie_isbn = "Did not found"
                     print("Inserting values to the Dataframe with missing ISBN.\n")
-                    print("--------------------------------------------------------")
+                    print("--------------------------------------------------------", Fore.RESET)
                     self.insert_to_movies_df(current_movie_name, current_movie_isbn, current_movie_barcode)
                     failed_isbn_count += 1 # Increments the failed isbn counter
             
