@@ -24,6 +24,6 @@ dependencies:
       - openpyxl==3.0.10
       - pandas==2.1.4
       - pytesseract==0.3.10
-      - tqdm==4.65.0
       - pyinstaller
       - readchar==4.0.6
+      - tqdm==4.65.0
