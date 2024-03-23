@@ -4,6 +4,7 @@
 from glob import glob
 from tqdm import trange
 from readchar import readkey
+from datetime import datetime
 import time
 import os
 import sys
@@ -114,15 +115,26 @@ class Image_To_Text_Extractor:
         return selected_isbn_format
     
     #----------------------------------------------------------------------------------------------------
+    # DateTime formatter used for naming the output file so that there will be no same file name:
+    #----------------------------------------------------------------------------------------------------
+    def datetime_formatter(self) -> str:
+        current_datetime = datetime.now()
+        formatted_datetime = current_datetime.strftime("-%Y%m%d-%H%M%S")
+        
+        return formatted_datetime
+    
+    #----------------------------------------------------------------------------------------------------
     # Output file base on the user's choice: This is where the output (Excel / CSV) file will be stored. 
     # This function also opens the folder afterwards. Call this function after the for loop function.
     #----------------------------------------------------------------------------------------------------
     def file_type_output_path(self) -> None:
+        datetime_string = self.datetime_formatter()
+        
         if self.file_type == 0:
-            self.movies_df.to_excel(f"{self.output_path}/movies.xlsx", index = False)
+            self.movies_df.to_excel(f"{self.output_path}/movies{datetime_string}.xlsx", index = False)
             os.startfile(self.output_path)
         else:
-            self.movies_df.to_csv(f"{self.output_path}/movies.csv", index = False)
+            self.movies_df.to_csv(f"{self.output_path}/movies{datetime_string}.csv", index = False)
             os.startfile(self.output_path)
     
     #----------------------------------------------------------------------------------------------------
