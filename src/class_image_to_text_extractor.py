@@ -18,11 +18,11 @@ import numpy as np
 #--------------------------------------------------------------------------------------------------------
 # Declaring some default values for the meantime:
 #--------------------------------------------------------------------------------------------------------
-file_type = 0
-isbn_format = 0
-output_path = "D:/emn33/Downloads/Output"
-image_path = "D:/emn33/Downloads/Images"
-tesseract_path = "C:/Program Files/Tesseract-OCR//tesseract.exe"
+# file_type = 0
+# isbn_format = 0
+# output_path = "D:/emn33/Downloads/Output"
+# image_path = "D:/emn33/Downloads/Images"
+# tesseract_path = "C:/Program Files/Tesseract-OCR//tesseract.exe"
 
 #--------------------------------------------------------------------------------------------------------
 # Start of the class:
@@ -536,10 +536,10 @@ class Image_To_Text_Extractor:
         #----------------------------------------------------------------------------------------------------
         os.system("cls")
         print(f"Program has finished scanning all the images in the selected folder.\nNumber of scanned images: {len(self.image_list)}\nNumber of failures:\n\tISBN: {failed_isbn_count}\n\tBarcode: {failed_barcode_count}\n")
-        print(f"The program took {total_time_statement} to finished.\n{total_time} in seconds.\n")
+        print(f"The program took {total_time_statement} to finished.\n")
         self.file_type_output_path()
         self.press_key_exit()
         
 if __name__ == "__main__":
-    Image_To_Text_Extractor(file_type, isbn_format, output_path, image_path, tesseract_path)
-    # Image_To_Text_Extractor()
+    # Image_To_Text_Extractor(file_type, isbn_format, output_path, image_path, tesseract_path)
+    Image_To_Text_Extractor()
