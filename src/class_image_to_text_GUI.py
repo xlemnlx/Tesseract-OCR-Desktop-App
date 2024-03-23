@@ -158,7 +158,9 @@ class Image_to_Text_GUI:
         # NOTE:
         # The path for the "Downloads" is for my computer for now. Need to change this once this is for sale.
         # Change this to conventional Path:
-        # f"C:/Users/{self.username}/Downloads"
+        # self.downloads_folder = f"C:/Users/{self.username}/Downloads" and also make a function that checks 
+        # the Downloads folder in C drive so that if it doesn't exist, ask the user for a proper location 
+        # path.
         #----------------------------------------------------------------------------------------------------
         self.username = os.getlogin()
         self.downloads_folder = f"D:/{self.username}/Downloads"
