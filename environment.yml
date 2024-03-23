@@ -2,6 +2,8 @@
 #  - Using an environment.yml file with conda
 #  - Key Terminal Commands:
 #
+#    conda activate "name of the environment"
+#    conda deactivate
 #    conda env create -f environment.yml
 #    conda env update --file environment.yml --prune
 #    conda env export --name name_for_the_environment > environment.yml
