@@ -251,7 +251,7 @@ class Image_to_Text_GUI:
             if response is True:
                 self.tesseract_path_browse()
             else:
-                exit()
+                sys.exit(0)
     
     def tesseract_path_formatter(self, found_path):
         self.selected_folder_tesseract = found_path
@@ -285,7 +285,7 @@ class Image_to_Text_GUI:
             if response is True:
                 self.tesseract_path_browse()
             else:
-                exit()
+                sys.exit(0)
     
     #----------------------------------------------------------------------------------------------------
     # Two methods that validates string lenghts:
