@@ -17,15 +17,6 @@ import pandas as pd
 import numpy as np
 
 #--------------------------------------------------------------------------------------------------------
-# Declaring some default values for the meantime:
-#--------------------------------------------------------------------------------------------------------
-# file_type = 0
-# isbn_format = 0
-# output_path = "D:/emn33/Downloads/Output"
-# image_path = "D:/emn33/Downloads/Images"
-# tesseract_path = "C:/Program Files/Tesseract-OCR//tesseract.exe"
-
-#--------------------------------------------------------------------------------------------------------
 # Start of the class:
 #--------------------------------------------------------------------------------------------------------
 class Image_To_Text_Extractor:
@@ -34,7 +25,7 @@ class Image_To_Text_Extractor:
     # Constructor:
     # Everything in here will run once the class has been called / invoke / instantiate.
     #--------------------------------------------------------------------------------------------------------
-    def __init__(self, file_type, isbn_format, output_path, image_path, tesseract_path) -> None:
+    def __init__(self, file_type: int, isbn_format: int, output_path: str, image_path: str, tesseract_path: str) -> None:
         self.file_type = file_type
         self.isbn_format = isbn_format
         self.output_path = output_path
@@ -89,7 +80,7 @@ class Image_To_Text_Extractor:
     #----------------------------------------------------------------------------------------------------
     # Insert the values to the dataframe:
     #----------------------------------------------------------------------------------------------------
-    def insert_to_movies_df(self, movie_name, movie_isbn, movie_barcode):
+    def insert_to_movies_df(self, movie_name: str, movie_isbn: str, movie_barcode: str) -> None:
         new_row = {"File Name:" : movie_name, "ISBN:" : movie_isbn, "12-Digit UPC:" : movie_barcode}
         new_row_df = pd.DataFrame([new_row])
         self.movies_df = pd.concat([self.movies_df, new_row_df], ignore_index=True)
@@ -97,8 +88,8 @@ class Image_To_Text_Extractor:
     #----------------------------------------------------------------------------------------------------
     # ISBN Pattern selector based on User's Choice:
     #----------------------------------------------------------------------------------------------------
-    def isbn_selector(self):
-        selected_isbn_format = None
+    def isbn_selector(self) -> str:
+        selected_isbn_format: str = ""
         
         match(self.isbn_format):
             case 0:
@@ -141,9 +132,9 @@ class Image_To_Text_Extractor:
     # Method that checks if a "Failed" folder already exist within the designated output folder. 
     # Creates the folder if it doesn't exist yet.
     #----------------------------------------------------------------------------------------------------
-    def failed_folder_validator_creator(self) -> str:
-        isbn_failed_folder_path = f"{self.output_path}/Failed-ISBN"
-        barcode_failed_folder_path = f"{self.output_path}/Failed-Barcode"
+    def failed_folder_validator_creator(self) -> tuple[str, str]:
+        isbn_failed_folder_path: str = f"{self.output_path}/Failed-ISBN"
+        barcode_failed_folder_path: str = f"{self.output_path}/Failed-Barcode"
         
         if glob(isbn_failed_folder_path):
             pass
@@ -160,9 +151,9 @@ class Image_To_Text_Extractor:
     #----------------------------------------------------------------------------------------------------
     # Method that copies the failed image to the "Failed-ISBN" folder. 
     #----------------------------------------------------------------------------------------------------
-    def failed_isbn_copier(self, image) -> None:
+    def failed_isbn_copier(self, image: str) -> None:
         image_path_split = image.split("\\")
-        image_path = f"{str(image_path_split[0])}/{str(image_path_split[1])}"
+        image_path: str = f"{image_path_split[0]}/{image_path_split[1]}"
         
         print(Fore.RED, "Did not found any match. The file will be copied to the failed folder inside the output folder.\n")
         sl.copy2(image_path, self.isbn_failed_path)
@@ -170,16 +161,16 @@ class Image_To_Text_Extractor:
     #----------------------------------------------------------------------------------------------------
     # Method that copies the failed image to the "Failed-Barcode" Folder:
     #----------------------------------------------------------------------------------------------------
-    def failed_barcode_copier(self, image):
+    def failed_barcode_copier(self, image: str) -> None:
         image_path_split = image.split("\\")
-        image_path = f"{str(image_path_split[0])}/{str(image_path_split[1])}"
+        image_path = f"{image_path_split[0]}/{image_path_split[1]}"
         
         sl.copy2(image_path, self.barcode_failed_path)
     
     #----------------------------------------------------------------------------------------------------
     # File name extraction:
     #----------------------------------------------------------------------------------------------------
-    def file_name_extraction(self, per_image) -> str:
+    def file_name_extraction(self, per_image: str) -> str:
         self.image_file_type.extend([".jpg", ".jpeg"])
         
         image_file_name_split = per_image.split("\\")
@@ -189,12 +180,14 @@ class Image_To_Text_Extractor:
             if per_type in image_file_name:
                 movie_split = image_file_name.split(per_type)
                 movie_name = str(movie_split[0])
-                return movie_name
+                break
+        
+        return movie_name
     
     #----------------------------------------------------------------------------------------------------
     # Barcode reader:
     #----------------------------------------------------------------------------------------------------
-    def barcode_reader(self, per_image) -> str:
+    def barcode_reader(self, per_image: str) -> str:
         upc_digits = ""
         
         image_barcode = cv2.imread(per_image)
@@ -216,30 +209,30 @@ class Image_To_Text_Extractor:
     # Method that converts the total time it takes for the program to finished the task to a formatted 
     # way: Days, Hours, Minutes, Seconds.
     #----------------------------------------------------------------------------------------------------
-    def total_time_formatter(self, total_time):
-        left_time = 0
+    def total_time_formatter(self, total_time: float) -> str:
+        left_time: int = 0
         
-        days = 0
-        hours = 0
-        minutes = 0
-        seconds = 0
+        days: int  = 0
+        hours: int  = 0
+        minutes: int  = 0
+        seconds: int  = 0
         
         if total_time >= 86400:
-            days = total_time // 86400
-            left_time = total_time % 86400
+            days = int(total_time // 86400)
+            left_time = int(total_time % 86400)
         else:
             days = 0
-            left_time = total_time
+            left_time = int(total_time)
         
         if left_time >= 3600:
-            hours = left_time // 3600
-            left_time = left_time % 3600
+            hours = int(left_time // 3600)
+            left_time = int(left_time % 3600)
         else:
             hours = 0
         
         if left_time >= 60:
-            minutes = left_time // 60
-            left_time = left_time % 60
+            minutes = int(left_time // 60)
+            left_time = int(left_time % 60)
         else:
             minutes = 0
         
@@ -248,7 +241,7 @@ class Image_To_Text_Extractor:
         else:
             seconds = 0
         
-        total_time_statement = f"{int(days)} days, {int(hours)} hours, {int(minutes)} minutes, and {int(seconds)} seconds"
+        total_time_statement = f"{days} days, {hours} hours, {minutes} minutes, and {seconds} seconds"
         return total_time_statement
     
     #----------------------------------------------------------------------------------------------------
@@ -256,7 +249,7 @@ class Image_To_Text_Extractor:
     # to press any key then exit the program. Will be using this at the end of the program to properly 
     # display the summary of the program:
     #----------------------------------------------------------------------------------------------------
-    def press_key_exit(self):
+    def press_key_exit(self) -> None:
         key_input = False
 
         print("Please press any key to exit...")
@@ -273,7 +266,7 @@ class Image_To_Text_Extractor:
     # function returns the crop images as a list that will be used to a loop to scan using Tesseract with 
     # different variations on how to scan for a text in the image.
     #----------------------------------------------------------------------------------------------------
-    def per_image_cropper(self, image) -> list:
+    def per_image_cropper(self, image: str) -> list:
         img = cv2.imread(image)
         image_180 = cv2.rotate(img, cv2.ROTATE_180)
         image_crop_list = []
@@ -342,17 +335,17 @@ class Image_To_Text_Extractor:
     #----------------------------------------------------------------------------------------------------
     # The following methods are Tesseract with different methods for scanning the text to an image:
     #----------------------------------------------------------------------------------------------------
-    def tesseract_default(self, image):
-        matched_pattern = None
+    def tesseract_default(self, image) -> str:
+        matched_pattern: str = ""
         
         texts_default = pytesseract.image_to_string(image=image, lang="eng", config=self.my_config)
-        matched_default = re.findall(self.isbn, texts_default)
+        matched_default = re.findall(self.isbn, texts_default) # type: ignore
         if matched_default:
             handler = "//".join(matched_default)
             matched_pattern = self.isbn_formatter(handler)
             return matched_pattern
         
-        if matched_pattern is None:
+        if matched_pattern == "":
             return matched_pattern
     
     def tesseract_with_filters(self, image):
@@ -360,21 +353,21 @@ class Image_To_Text_Extractor:
         image_noise_reduc = cv2.medianBlur(image_gray, 1)
         image_sharp = cv2.filter2D(image_noise_reduc, -1, np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]]))
         
-        matched_pattern = None
+        matched_pattern: str = ""
         
         matched_pattern = self.tesseract_default(image=image_gray)
-        if matched_pattern is not None:
+        if matched_pattern != "":
             return matched_pattern
         
         matched_pattern = self.tesseract_default(image=image_noise_reduc)
-        if matched_pattern is not None:
+        if matched_pattern != "":
             return matched_pattern
         
         matched_pattern = self.tesseract_default(image=image_sharp)
-        if matched_pattern is not None:
+        if matched_pattern != "":
             return matched_pattern
         
-        if matched_pattern is None:
+        if matched_pattern == "":
             return matched_pattern
     
     def tesseract_contours(self, image):
@@ -386,7 +379,7 @@ class Image_To_Text_Extractor:
         im2 = image.copy()
         
         text_list = []
-        matched_pattern = None
+        matched_pattern: str = ""
         
         # First loop for default Tesseract.
         for per_contour in contours:
@@ -401,21 +394,19 @@ class Image_To_Text_Extractor:
             text_list.append(text)
         
         texts = "".join(text_list)
-        matched_default = re.findall(self.isbn, texts)
+        matched_default = re.findall(self.isbn, texts) # type: ignore
         if matched_default:
             handler = "//".join(matched_default)
             matched_pattern = self.isbn_formatter(handler)
             return matched_pattern
-        
-        # Finally, if contours didn't work, will return an empty value.
-        if matched_pattern is None:
+        else: 
             return matched_pattern
     
     #----------------------------------------------------------------------------------------------------
     # Found ISBN Formatter: This is needed since not all detected / found ISBN values are formatted in 
     # the correct way.
     #----------------------------------------------------------------------------------------------------
-    def isbn_formatter(self, isbn_value) -> str:
+    def isbn_formatter(self, isbn_value: str) -> str:
         isbn_value_list = list(isbn_value)
         new_isbn_value_list = []
         
@@ -433,48 +424,49 @@ class Image_To_Text_Extractor:
     # of the original image resulting to smaller field to scan IF the first Tesseract (Tesseract scans 
     # the whole image) didn't found a match:
     #----------------------------------------------------------------------------------------------------
-    def image_cropper_looping(self, per_image):
+    def image_cropper_looping(self, per_image: str) -> str:
         print("Cropping the current image to different parts.")
         image_cropped_list = self.per_image_cropper(per_image)
         print(f"Looping through {len(image_cropped_list)} cropped images.\n")
         
-        matched_pattern = None
+        matched_pattern: str = ""
         cropped_cout = 1
         with trange(len(image_cropped_list), desc="Scanning cropped image #", bar_format="|{bar}| {desc} {n_fmt} of {total_fmt}", leave=False) as t:    
             for per_cropped in image_cropped_list:
                 
                 matched_pattern = self.tesseract_default(image=per_cropped)
-                if matched_pattern is not None:
+                if matched_pattern != "":
                     print(Fore.GREEN, "\nFound a match!\n")
                     return matched_pattern
                 
                 matched_pattern = self.tesseract_with_filters(image=per_cropped)
-                if matched_pattern is not None:
+                if matched_pattern != "":
                     print(Fore.GREEN, "\nFound a match using a filtered image!\n")
                     return matched_pattern
                 
                 matched_pattern = self.tesseract_contours(image=per_cropped)
-                if matched_pattern is not None:
+                if matched_pattern != "":
                     print(Fore.GREEN, "\nFound a match using a contoured image!\n")
                     return matched_pattern
                 
                 cropped_cout += 1
                 t.update()
         
-        if matched_pattern is None:
+        if matched_pattern == "":
             self.failed_isbn_copier(image=per_image)
+            return matched_pattern
         
     #----------------------------------------------------------------------------------------------------
     # Loop method for the image list. Will call multiple functions here base on what is the current
     # task (File name extraction, Barcode Reader, ISBN extraction):
     #----------------------------------------------------------------------------------------------------
     def image_list_looping(self) -> None:
-        whole_image_count = 1 # Will be use to display the current count of the image in the loop.
-        failed_isbn_count = 0 # A counter for failed isbn extraction
-        failed_barcode_count = 0 # A counter for failed barcode extraction
+        whole_image_count: int = 1 # Will be use to display the current count of the image in the loop.
+        failed_isbn_count: int = 0 # A counter for failed isbn extraction
+        failed_barcode_count: int = 0 # A counter for failed barcode extraction
         
         #----------------------------------------------------------------------------------------------------
-        # Starts a timer.
+        # Starts the timer.
         #----------------------------------------------------------------------------------------------------
         start_time = time.time()
         
@@ -502,7 +494,7 @@ class Image_To_Text_Extractor:
             #----------------------------------------------------------------------------------------------------
             current_movie_isbn = self.tesseract_default(image=per_image)
             
-            if current_movie_isbn is not None:
+            if current_movie_isbn != "":
                 print(Fore.GREEN, "Found a match using the whole image!")
                 print("Inserting values to the Dataframe.\n")
                 print("--------------------------------------------------------", Fore.RESET)
@@ -511,7 +503,7 @@ class Image_To_Text_Extractor:
                 print("Did not found the ISBN using the whole image.")
                 current_movie_isbn = self.image_cropper_looping(per_image=per_image)
                 
-                if current_movie_isbn is not None:
+                if current_movie_isbn != "":
                     print("Inserting values to the Dataframe.\n")
                     print("--------------------------------------------------------", Fore.RESET)
                     self.insert_to_movies_df(current_movie_name, current_movie_isbn, current_movie_barcode)
@@ -541,5 +533,12 @@ class Image_To_Text_Extractor:
         self.press_key_exit()
         
 if __name__ == "__main__":
-    # Image_To_Text_Extractor(file_type, isbn_format, output_path, image_path, tesseract_path)
-    Image_To_Text_Extractor()
+    #--------------------------------------------------------------------------------------------------------
+    # Declaring some default values for the meantime:
+    #--------------------------------------------------------------------------------------------------------
+    file_type = 1
+    isbn_format = 0
+    output_path = "E:/My Files/Desktop/OCR_app/Output"
+    image_path = "E:/My Files/Desktop/OCR_app/Images"
+    tesseract_path = "C:/Program Files/Tesseract-OCR//tesseract.exe"
+    Image_To_Text_Extractor(file_type, isbn_format, output_path, image_path, tesseract_path)

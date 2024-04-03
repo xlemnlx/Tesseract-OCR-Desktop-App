@@ -15,8 +15,8 @@ class Image_to_Text_GUI:
         #----------------------------------------------------------------------------------------------------
         # Centering the window dynamically to different sizes of screens:
         #----------------------------------------------------------------------------------------------------
-        window_height = 300
-        window_width = 600
+        window_height: int = 300
+        window_width: int = 600
         
         screen_width = self.window.winfo_screenwidth()
         screen_height = self.window.winfo_screenheight()
@@ -40,24 +40,24 @@ class Image_to_Text_GUI:
         # Radio Buttons: .xslx File || .csv File
         #----------------------------------------------------------------------------------------------------
         self.label_file_type_text = tkt.Label(self.window, text="Please select the output file format:", font=("Arial", 13))
-        self.label_file_type_text.grid(row=0, column=0, columnspan=5, sticky= tkt.W + tkt.E)
+        self.label_file_type_text.grid(row=0, column=0, columnspan=5, sticky=tkt.W + tkt.E)
         
         self.rb_file_type_value = tkt.IntVar()
         
-        self.rb_xlsx = tkt.Radiobutton(self.window, text=".xlsx", variable= self.rb_file_type_value, value= 0, font=("Arial", 11))
-        self.rb_xlsx.grid(row=1, column=1,  columnspan=2, sticky= tkt.W)
+        self.rb_xlsx = tkt.Radiobutton(self.window, text=".xlsx", variable=self.rb_file_type_value, value=0, font=("Arial", 11))
+        self.rb_xlsx.grid(row=1, column=1,  columnspan=2, sticky=tkt.W)
         
-        self.rb_csv = tkt.Radiobutton(self.window, text=".csv", variable= self.rb_file_type_value, value= 1, font=("Arial", 11))
-        self.rb_csv.grid(row=1, column=3,  columnspan=2, sticky= tkt.W)
+        self.rb_csv = tkt.Radiobutton(self.window, text=".csv", variable=self.rb_file_type_value, value=1, font=("Arial", 11))
+        self.rb_csv.grid(row=1, column=3,  columnspan=2, sticky=tkt.W)
         
         #--------------------------------------------------------------------------------------------------------
         # Separator for First Floor and Second Floor (Horizontal) and to the next building (Vertical):
         #--------------------------------------------------------------------------------------------------------
         self.separator = ttk.Separator(self.window, orient="horizontal", style="blue.TSeparator")
-        self.separator.grid(row=2, column=0, columnspan=5, sticky= tkt.W + tkt.E)
+        self.separator.grid(row=2, column=0, columnspan=5, sticky=tkt.W + tkt.E)
         
         self.separator = ttk.Separator(self.window, orient="vertical", style="blue.TSeparator")
-        self.separator.grid(row=0, column=5, rowspan=6, sticky= tkt.N + tkt.S)
+        self.separator.grid(row=0, column=5, rowspan=6, sticky=tkt.N + tkt.S)
         
         #----------------------------------------------------------------------------------------------------
         # Second Group - Second Floor - Left - Output Path:
@@ -66,24 +66,24 @@ class Image_to_Text_GUI:
         # Label: Reflect the current selected path.
         #----------------------------------------------------------------------------------------------------
         self.label_output_path_text = tkt.Label(self.window, text="Output file location:", font=("Arial", 13))
-        self.label_output_path_text.grid(row=3, column=0, columnspan=2, sticky= tkt.W + tkt.E, padx=15)
+        self.label_output_path_text.grid(row=3, column=0, columnspan=2, sticky=tkt.W + tkt.E, padx=15)
         
         self.cb_output_path_value = tkt.IntVar()
-        self.cb_output_path = tkt.Checkbutton(self.window, text="Default", variable= self.cb_output_path_value, command=self.output_path_cb, font=("Arial", 11))
-        self.cb_output_path.grid(row=4, column=0, sticky= tkt.W)
+        self.cb_output_path = tkt.Checkbutton(self.window, text="Default", variable=self.cb_output_path_value, command=self.output_path_cb, font=("Arial", 11))
+        self.cb_output_path.grid(row=4, column=0, sticky=tkt.W)
         self.cb_output_path.select()
         
         self.btn_output_path = tkt.Button(self.window, text="Browse", command=self.output_path_btn, font=("Arial", 11))
-        self.btn_output_path.grid(row=4, column=1, sticky= tkt.W, padx=15)
+        self.btn_output_path.grid(row=4, column=1, sticky=tkt.W, padx=15)
         
         self.label_output_path = tkt.Label(self.window, font=("Arial", 9))
-        self.label_output_path.grid(row=5, column=0, columnspan=2, sticky= tkt.W)
+        self.label_output_path.grid(row=5, column=0, columnspan=2, sticky=tkt.W)
         
         #--------------------------------------------------------------------------------------------------------
         # Separator for Second Floor - Left and Right (Vertical):
         #--------------------------------------------------------------------------------------------------------
         self.separator = ttk.Separator(self.window, orient="vertical", style="blue.TSeparator")
-        self.separator.grid(row=3, column=2, rowspan=6, sticky= tkt.N + tkt.S)
+        self.separator.grid(row=3, column=2, rowspan=6, sticky=tkt.N + tkt.S)
         
         #----------------------------------------------------------------------------------------------------
         # Second Group - Second Floor - Right - Image Path:
@@ -92,24 +92,24 @@ class Image_to_Text_GUI:
         # Label: Reflect the current selected path.
         #----------------------------------------------------------------------------------------------------
         self.label_image_path_text = tkt.Label(self.window, text="Image location:", font=("Arial", 13))
-        self.label_image_path_text.grid(row=3, column=3, columnspan=2, sticky= tkt.W + tkt.E, padx=15)
+        self.label_image_path_text.grid(row=3, column=3, columnspan=2, sticky=tkt.W + tkt.E, padx=15)
         
         self.cb_image_path_value = tkt.IntVar()
-        self.cb_image_path = tkt.Checkbutton(self.window, text="Default", variable= self.cb_image_path_value, command=self.image_path_cb, font=("Arial", 11))
+        self.cb_image_path = tkt.Checkbutton(self.window, text="Default", variable=self.cb_image_path_value, command=self.image_path_cb, font=("Arial", 11))
         self.cb_image_path.select()
-        self.cb_image_path.grid(row=4, column=3, sticky= tkt.W)
+        self.cb_image_path.grid(row=4, column=3, sticky=tkt.W)
         
         self.btn_image_path = tkt.Button(self.window, text="Browse", command=self.image_path_btn, font=("Arial", 11))
-        self.btn_image_path.grid(row=4, column=4, sticky= tkt.W, padx=15)
+        self.btn_image_path.grid(row=4, column=4, sticky=tkt.W, padx=15)
         
         self.label_image_path = tkt.Label(self.window, font=("Arial", 9))
-        self.label_image_path.grid(row=5, column=3, columnspan=2, sticky= tkt.W)
+        self.label_image_path.grid(row=5, column=3, columnspan=2, sticky=tkt.W)
         
         #--------------------------------------------------------------------------------------------------------
         # Separator for Second Floor and Third Floor (Horizontal):
         #--------------------------------------------------------------------------------------------------------
         self.separator = ttk.Separator(self.window, orient="horizontal", style="blue.TSeparator")
-        self.separator.grid(row=6, column=0, columnspan=9, sticky= tkt.W + tkt.E)
+        self.separator.grid(row=6, column=0, columnspan=9, sticky=tkt.W + tkt.E)
         
         #----------------------------------------------------------------------------------------------------
         # Third Floor - Proceed Button:
@@ -121,7 +121,7 @@ class Image_to_Text_GUI:
         # Second Building - First Floor - ISBN Formats:
         #----------------------------------------------------------------------------------------------------
         self.label_isbn_format_text = tkt.Label(self.window, text="Please select the ISBN format:", font=("Arial", 13))
-        self.label_isbn_format_text.grid(row=0, column=6, columnspan=3, sticky= tkt.W + tkt.E, padx=15)
+        self.label_isbn_format_text.grid(row=0, column=6, columnspan=3, sticky=tkt.W + tkt.E, padx=15)
 
         self.rb_isbn_format_value = tkt.IntVar()
 
@@ -146,12 +146,12 @@ class Image_to_Text_GUI:
         # Label: Shows the path for the .exe file.
         #----------------------------------------------------------------------------------------------------
         self.label_tesseract_path_text = tkt.Label(self.window, text="Tesseract location:", font=("Arial", 13))
-        self.label_tesseract_path_text.grid(row=7, column=3, columnspan=6, sticky= tkt.W + tkt.E)
+        self.label_tesseract_path_text.grid(row=7, column=3, columnspan=6, sticky=tkt.W + tkt.E)
         
         self.label_tesseract_path_one = tkt.Label(self.window, font=("Arial", 9))
-        self.label_tesseract_path_one.grid(row=8, column=3, columnspan=6, sticky= tkt.W + tkt.E,)
+        self.label_tesseract_path_one.grid(row=8, column=3, columnspan=6, sticky=tkt.W + tkt.E,)
         self.label_tesseract_path_two = tkt.Label(self.window, font=("Arial", 9))
-        self.label_tesseract_path_two.grid(row=9, column=3, columnspan=6, sticky= tkt.W + tkt.E,)
+        self.label_tesseract_path_two.grid(row=9, column=3, columnspan=6, sticky=tkt.W + tkt.E,)
         
         #----------------------------------------------------------------------------------------------------
         # Dynamic location paths and default paths:
@@ -177,14 +177,14 @@ class Image_to_Text_GUI:
     #----------------------------------------------------------------------------------------------------
     # Closing method. This method will trigger when the user click in the "x" button of the window:
     #----------------------------------------------------------------------------------------------------
-    def closing_question(self):
+    def closing_question(self) -> None:
         if mb.askyesno(title="Quit", message="Do you really want to quit the application?") is True:
             sys.exit(0)
     
     #----------------------------------------------------------------------------------------------------
     # Two methods used for the Output file location:
     #----------------------------------------------------------------------------------------------------
-    def output_path_btn(self):
+    def output_path_btn(self) -> None:
         self.selected_folder_output = fd.askdirectory()
         if self.selected_folder_output:
             handler = self.string_len_validation_one(self.selected_folder_output)
@@ -196,7 +196,7 @@ class Image_to_Text_GUI:
             self.label_output_path.config(text=handler)
             self.cb_output_path_value.set(1)
     
-    def output_path_cb(self):
+    def output_path_cb(self) -> None:
         self.selected_folder_output = self.downloads_folder
         if self.cb_output_path_value.get() == 1:
             handler = self.string_len_validation_one(self.selected_folder_output)
@@ -208,7 +208,7 @@ class Image_to_Text_GUI:
     #----------------------------------------------------------------------------------------------------
     # Two methods used for the Image file location:
     #----------------------------------------------------------------------------------------------------
-    def image_path_btn(self):
+    def image_path_btn(self) -> None:
         self.selected_folder_image = fd.askdirectory()
         if self.selected_folder_image:
             handler = self.string_len_validation_one(self.selected_folder_image)
@@ -220,7 +220,7 @@ class Image_to_Text_GUI:
             handler = self.string_len_validation_one(self.selected_folder_image)
             self.label_image_path.config(text=handler)
     
-    def image_path_cb(self):
+    def image_path_cb(self) -> None:
         self.selected_folder_image = self.downloads_folder
         if self.cb_image_path_value.get() == 1:
             handler = self.string_len_validation_one(self.selected_folder_image)
@@ -232,7 +232,7 @@ class Image_to_Text_GUI:
     #----------------------------------------------------------------------------------------------------
     # Methods used for Tesseract location:
     #----------------------------------------------------------------------------------------------------
-    def tesseract_find_path_at_start(self):
+    def tesseract_find_path_at_start(self) -> None:
         username = os.getlogin()
         found = False
         tesseract_candidate_folders = ["C:/Program Files/Tesseract-OCR/",
@@ -255,7 +255,7 @@ class Image_to_Text_GUI:
             else:
                 sys.exit(0)
     
-    def tesseract_path_formatter(self, found_path):
+    def tesseract_path_formatter(self, found_path: str) -> None:
         self.selected_folder_tesseract = found_path
         if len(found_path) > 45:
             one, two = self.string_len_validation_two(found_path)
@@ -266,13 +266,13 @@ class Image_to_Text_GUI:
             self.label_tesseract_path_one.config(text=str(one))
             self.label_tesseract_path_two.config(text="")
     
-    def tesseract_path_browse(self):
+    def tesseract_path_browse(self) -> None:
         self.selected_folder_tesseract = fd.askdirectory() + "/tesseract.exe"
         if self.selected_folder_tesseract:
             self.tesseract_validate_path()
             self.tesseract_path_formatter(self.selected_folder_tesseract)
     
-    def tesseract_validate_path(self):
+    def tesseract_validate_path(self) -> None:
         tesseract_folder_split = self.selected_folder_tesseract.split("/tesseract.exe")
         tesseract_file_list = glob(f"{tesseract_folder_split[0]}/tesseract.exe")
         found = False
@@ -294,13 +294,13 @@ class Image_to_Text_GUI:
     # One for Output Folder and Images Folder.
     # One for Tesseract Folder.
     #----------------------------------------------------------------------------------------------------
-    def string_len_validation_one(self, path_string_one):
+    def string_len_validation_one(self, path_string_one: str) -> str:
         if len(path_string_one) > 20:
             return path_string_one[:20] + "..."
         else:
             return path_string_one
     
-    def string_len_validation_two(self, path_string_two):
+    def string_len_validation_two(self, path_string_two: str):
         if len(path_string_two) > 45:
             return path_string_two[:45], path_string_two[45:]
         else:
@@ -309,8 +309,8 @@ class Image_to_Text_GUI:
     #----------------------------------------------------------------------------------------------------
     # Methods for Proceed button:
     #----------------------------------------------------------------------------------------------------
-    def button_state(self):
-        btn_state = 0
+    def button_state(self) -> int:
+        btn_state: int = 0
         if self.proceed_btn_clicked is True:
             btn_state = 1
             return btn_state
@@ -318,7 +318,7 @@ class Image_to_Text_GUI:
             btn_state = 0
             return btn_state
             
-    def variable_values(self):
+    def variable_values(self) -> tuple:
         file_type = self.rb_file_type_value.get()
         isbn_format = self.rb_isbn_format_value.get()
         output_path = self.selected_folder_output
@@ -327,7 +327,7 @@ class Image_to_Text_GUI:
         
         return file_type, isbn_format, output_path, image_path, tesseract_path
     
-    def handle_proceed(self):
+    def handle_proceed(self) -> None:
         if mb.askyesno(title="Confirm", message="Proceed with this settings?"):
             self.proceed_btn_clicked = True
             self.variable_values()
