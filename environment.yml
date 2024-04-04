@@ -16,16 +16,15 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.11.5
   - pip
   - bottleneck
   - pip:
-      - numpy==1.26.3
-      - opencv-python==4.9.0.80
-      - opencv-contrib-python==4.9.0.80
-      - openpyxl==3.0.10
-      - pandas==2.1.4
-      - pytesseract==0.3.10
+      - numpy
+      - opencv-python
+      - opencv-contrib-python
+      - openpyxl
+      - pandas
+      - pytesseract
       - pyinstaller
-      - readchar==4.0.6
-      - tqdm==4.65.0
+      - readchar
+      - tqdm
